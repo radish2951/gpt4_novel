@@ -18,8 +18,9 @@ async function animateText(element, text) {
 
   for (const line of lines) {
     const lineElement = document.createElement("div");
+    const processedLine = line.replace(/\[l\]/g, "");
 
-    for (const char of line) {
+    for (const char of processedLine) {
       const charSpan = document.createElement("span");
       charSpan.className = "char";
       charSpan.textContent = char;
@@ -46,7 +47,7 @@ async function animateText(element, text) {
       }
     }
 
-    if (lines.indexOf(line) < lines.length - 1) {
+    if (line.includes("[l]") || lines.indexOf(line) < lines.length - 1) {
       waitingForClick = true;
       await new Promise((resolve) => {
         const clickHandler = () => {
