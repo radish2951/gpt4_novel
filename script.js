@@ -149,15 +149,22 @@ async function loadGame(file) {
   }
 }
 
-function handleChoice(index) {
+async function handleChoice(index) {
   const targetScene = currentChoices[index].target;
   const targetSceneWithExtension = targetScene.endsWith(".txt") ? targetScene : targetScene + ".txt";
-  
+
   // 選択肢をクリアする
   choices.innerHTML = "";
 
+  // シーン遷移アニメーション
+  await changeScene(
+    document.getElementById("game-screen"),
+    document.getElementById("game-screen")
+  );
+
   loadGame(targetSceneWithExtension);
 }
+
 
 // シーン遷移用の関数
 async function changeScene(hideElement, showElement) {
