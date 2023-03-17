@@ -19,4 +19,3 @@ choice:声をかける
 ->scene2.txt
 choice:声をかけない
 ->scene3.txt
-
