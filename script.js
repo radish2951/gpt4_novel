@@ -102,16 +102,17 @@ function showChoices(choiceList) {
   });
 }
 
-// エンディング用のボタンを表示する関数を追加
+// ゲームクリア画面からタイトル画面へ
 function showEndingButton() {
   const button = document.createElement("button");
   button.textContent = "タイトルに戻る";
   button.className = "choice";
   button.addEventListener("click", (event) => {
     event.stopPropagation();
-    // タイトル画面に戻る
-    document.getElementById("game-screen").style.display = "none";
-    document.getElementById("title-screen").style.display = "flex";
+    changeScene(
+      document.getElementById("game-screen"),
+      document.getElementById("title-screen")
+    );
   });
   choices.appendChild(button);
 }
@@ -157,9 +158,21 @@ function handleChoice(index) {
   loadGame(targetSceneWithExtension);
 }
 
+// シーン遷移用の関数
+async function changeScene(hideElement, showElement) {
+  hideElement.style.opacity = "0";
+  await new Promise((resolve) => setTimeout(resolve, 500));
+  hideElement.style.display = "none";
+  showElement.style.display = "flex";
+  await new Promise((resolve) => setTimeout(resolve, 100));
+  showElement.style.opacity = "1";
+}
 
+// タイトル画面からゲーム画面へ
 document.getElementById("start-game").addEventListener("click", () => {
-  document.getElementById("title-screen").style.display = "none";
-  document.getElementById("game-screen").style.display = "flex";
+  changeScene(
+    document.getElementById("title-screen"),
+    document.getElementById("game-screen")
+  );
   loadGame("scene1.txt");
 });

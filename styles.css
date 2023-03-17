@@ -132,3 +132,8 @@ body {
   transition: opacity 0.2s;
 }
 
+#game-screen,
+#title-screen {
+  opacity: 1;
+  transition: opacity 0.5s;
+}
