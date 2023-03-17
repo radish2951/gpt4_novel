@@ -111,7 +111,7 @@ function showEndingButton() {
     event.stopPropagation();
     // タイトル画面に戻る
     document.getElementById("game-screen").style.display = "none";
-    document.getElementById("title-screen").style.display = "block";
+    document.getElementById("title-screen").style.display = "flex";
   });
   choices.appendChild(button);
 }
@@ -160,6 +160,6 @@ function handleChoice(index) {
 
 document.getElementById("start-game").addEventListener("click", () => {
   document.getElementById("title-screen").style.display = "none";
-  document.getElementById("game-screen").style.display = "block";
+  document.getElementById("game-screen").style.display = "flex";
   loadGame("scene1.txt");
 });
