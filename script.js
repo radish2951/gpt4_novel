@@ -107,9 +107,10 @@ function showEndingButton() {
   const button = document.createElement("button");
   button.textContent = "タイトルに戻る";
   button.className = "choice";
-  button.addEventListener("click", (event) => {
+  button.addEventListener("click", async (event) => {
     event.stopPropagation();
-    changeScene(
+    resetGame();
+    await changeScene(
       document.getElementById("game-screen"),
       document.getElementById("title-screen")
     );
@@ -168,9 +169,18 @@ async function changeScene(hideElement, showElement) {
   showElement.style.opacity = "1";
 }
 
+// ゲームをリセットする関数
+function resetGame() {
+  textBox.innerHTML = "";
+  choices.innerHTML = "";
+  skipAnimation = false;
+  waitingForClick = false;
+}
+
 // タイトル画面からゲーム画面へ
-document.getElementById("start-game").addEventListener("click", () => {
-  changeScene(
+document.getElementById("start-game").addEventListener("click", async () => {
+  resetGame();
+  await changeScene(
     document.getElementById("title-screen"),
     document.getElementById("game-screen")
   );
