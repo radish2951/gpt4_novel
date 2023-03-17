@@ -86,6 +86,8 @@ function showChoices(choiceList) {
   });
 }
 
+let currentChoices = [];
+
 async function loadGame(file) {
   const response = await fetch(file);
   const text = await response.text();
@@ -94,6 +96,7 @@ async function loadGame(file) {
   textBox.innerHTML = "";
   skipAnimation = false;
   await animateText(textBox, content);
+  currentChoices = choiceList;
   showChoices(choiceList);
 }
 
