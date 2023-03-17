@@ -126,7 +126,18 @@ async function loadGame(file) {
   textBox.innerHTML = "";
   skipAnimation = false;
   await animateText(textBox, content);
-  
+
+  // クリックを待つ
+  waitingForClick = true;
+  await new Promise((resolve) => {
+    const clickHandler = () => {
+      waitingForClick = false;
+      gameContainer.removeEventListener("click", clickHandler);
+      resolve();
+    };
+    gameContainer.addEventListener("click", clickHandler);
+  });
+
   // エンディングタグが検出されたら、エンディング用のボタンを表示
   if (detectEndingTag(text)) {
     showEndingButton();
