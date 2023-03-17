@@ -3,6 +3,7 @@ const choices = document.getElementById("choices");
 const gameContainer = document.querySelector(".game-container");
 let skipAnimation = false;
 let waitingForClick = false;
+let currentChoices = [];
 
 gameContainer.addEventListener("click", () => {
   if (waitingForClick) {
@@ -109,12 +110,12 @@ function showChoices(choiceList) {
 async function loadGame(file) {
   const response = await fetch(file);
   const text = await response.text();
-  const choiceList = parseChoices(text);
+  currentChoices = parseChoices(text);
   const content = text.replace(/choice:.+/g, "").replace(/->\s*(.+)/g, "").replace(/::[^:]+::/g, "").trim();
   textBox.innerHTML = "";
   skipAnimation = false;
   await animateText(textBox, content);
-  showChoices(choiceList);
+  showChoices(currentChoices);
 }
 
 function handleChoice(index) {
@@ -125,16 +126,5 @@ function handleChoice(index) {
   }
 }
 
-async function initializeGame() {
-  const response = await fetch("scene1.txt");
-  const text = await response.text();
-  currentChoices = parseChoices(text);
-  const content = text.replace(/choice:.+/g, "").replace(/->\s*(.+)/g, "").replace(/::[^:]+::/g, "").trim();
-  textBox.innerHTML = "";
-  skipAnimation = false;
-  await animateText(textBox, content);
-  showChoices(currentChoices);
-}
-
-let currentChoices = [];
-initializeGame();
+// 最初のシーンを読み込む
+loadGame("scene1.txt");
