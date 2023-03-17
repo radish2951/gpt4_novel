@@ -35,10 +35,12 @@ async function animateText(element, text) {
       if (!skipAnimation) {
         await new Promise((resolve) => setTimeout(resolve, 50));
       }
-      if (skipAnimation && charIndex === lineElement.children.length - 1) {
+      if (skipAnimation) {
+        for (let i = charIndex + 1; i < lineElement.children.length; i++) {
+          lineElement.children[i].style.opacity = "1";
+        }
         skipAnimation = false;
-      } else if (skipAnimation) {
-        charIndex = lineElement.children.length - 1;
+        break;
       } else {
         charIndex++;
       }
