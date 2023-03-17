@@ -12,8 +12,9 @@ gameContainer.addEventListener("click", () => {
   }
 });
 
-function scrollToBottom(element) {
-  element.scrollTop = element.scrollHeight;
+function scrollToBottom() {
+  const textWindow = document.getElementById("text-window");
+  textWindow.scrollTop = textWindow.scrollHeight;
 }
 
 async function animateText(element, text) {
@@ -51,8 +52,8 @@ async function animateText(element, text) {
     }
 
     if (lines.indexOf(line) < lines.length - 1) {
-      // 空行でない場合のみ、クリック待ちを実行
       if (line.trim() !== "") {
+        scrollToBottom(); // 追加: スクロールを一番下に移動させる
         waitingForClick = true;
         await new Promise((resolve) => {
           const clickHandler = () => {
@@ -64,8 +65,6 @@ async function animateText(element, text) {
         });
       }
     }
-
-    scrollToBottom(element); // 追加: スクロールを一番下に移動させる
   }
 }
 
