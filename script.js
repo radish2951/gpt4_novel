@@ -39,18 +39,23 @@ async function animateText(element, text) {
     let charIndex = 0;
     while (charIndex < lineElement.children.length) {
       lineElement.children[charIndex].style.opacity = "1";
+
       if (!skipAnimation) {
         await new Promise((resolve) => setTimeout(resolve, 50));
-      }
-      if (skipAnimation) {
-        for (let i = charIndex + 1; i < lineElement.children.length; i++) {
-          lineElement.children[i].style.opacity = "1";
-        }
-        skipAnimation = false;
-        break;
       } else {
-        charIndex++;
+        break;
       }
+    }
+
+    if (skipAnimation) {
+      element.innerHTML = "";
+      for (const remainingLine of lines.slice(lines.indexOf(line))) {
+        const remainingLineElement = document.createElement("div");
+        remainingLineElement.textContent = remainingLine;
+        element.appendChild(remainingLineElement);
+      }
+      skipAnimation = false;
+      break;
     }
 
     if (lines.indexOf(line) < lines.length - 1) {
@@ -123,7 +128,7 @@ let currentChoices = [];
 async function loadGame(file) {
   const response = await fetch(file);
   const text = await response.text();
-  const choiceList = parseChoices(text);
+  currentChoices = parseChoices(text);
   const content = text.replace(/choice:.+/g, "").replace(/->\s*(.+)/g, "").replace(/::[^:]+::/g, "").trim();
   textBox.innerHTML = "";
   skipAnimation = false;
