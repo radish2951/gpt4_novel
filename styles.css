@@ -31,6 +31,7 @@ body {
   min-height: 100px;
   transition: opacity 0.5s;
   margin: 0 10px;
+  line-height: 1.6; /* 行間を調整 */
 }
 
 #choices {
@@ -57,9 +58,13 @@ body {
   background-color: #FFC1C4;
 }
 
+.choice:focus { /* フォーカススタイルを追加 */
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 182, 185, 0.5);
+}
+
 .char {
   opacity: 0;
   display: inline;
   transition: opacity 0.2s;
 }
-
