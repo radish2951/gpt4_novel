@@ -101,11 +101,9 @@ async function loadGame(file) {
 }
 
 function handleChoice(index) {
-  const choice = currentChoices[index];
-  if (choice.target) {
-    choices.innerHTML = "";
-    loadGame(choice.target + ".txt");
-  }
+  const targetScene = currentChoices[index].target;
+  const targetSceneWithExtension = targetScene.endsWith(".txt") ? targetScene : targetScene + ".txt";
+  loadGame(targetSceneWithExtension);
 }
 
 // 最初のシーンを読み込む
