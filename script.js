@@ -82,6 +82,12 @@ function parseChoices(text) {
   return choices;
 }
 
+// エンディングタグを検出する関数を追加
+function detectEndingTag(text) {
+  const endingTag = "::end::";
+  return text.includes(endingTag);
+}
+
 function showChoices(choiceList) {
   choices.innerHTML = "";
   choiceList.forEach((choice, index) => {
@@ -96,6 +102,20 @@ function showChoices(choiceList) {
   });
 }
 
+// エンディング用のボタンを表示する関数を追加
+function showEndingButton() {
+  const button = document.createElement("button");
+  button.textContent = "タイトルに戻る";
+  button.className = "choice";
+  button.addEventListener("click", (event) => {
+    event.stopPropagation();
+    // タイトル画面に戻る
+    document.getElementById("game-screen").style.display = "none";
+    document.getElementById("title-screen").style.display = "block";
+  });
+  choices.appendChild(button);
+}
+
 let currentChoices = [];
 
 async function loadGame(file) {
@@ -106,8 +126,14 @@ async function loadGame(file) {
   textBox.innerHTML = "";
   skipAnimation = false;
   await animateText(textBox, content);
-  currentChoices = choiceList;
-  showChoices(choiceList);
+  
+  // エンディングタグが検出されたら、エンディング用のボタンを表示
+  if (detectEndingTag(text)) {
+    showEndingButton();
+  } else {
+    currentChoices = choiceList;
+    showChoices(choiceList);
+  }
 }
 
 function handleChoice(index) {
