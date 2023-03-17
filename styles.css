@@ -20,10 +20,27 @@ body {
   width: 80%;
   max-width: 800px;
   min-height: 180px;
+  max-height: 400px; /* 追加: 最大高さを設定 */
+  overflow-y: auto; /* 追加: 縦方向のスクロールバーを表示 */
   margin-bottom: 50px;
   padding: 20px;
   border-radius: 10px;
   font-size: 1.2rem;
+}
+
+/* 追加: スクロールバーのスタイルを設定 */
+#text-window::-webkit-scrollbar {
+  width: 8px;
+}
+
+#text-window::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+#text-window::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
 }
 
 #text-box {
