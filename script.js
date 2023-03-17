@@ -14,7 +14,6 @@ gameContainer.addEventListener("click", () => {
 
 async function animateText(element, text) {
   element.innerHTML = "";
-  text = text.replace(/\n{2,}/g, '\n\n'); // 連続する空行を1つの空行に置き換える
   const lines = text.split("\n");
 
   for (const line of lines) {
@@ -47,8 +46,7 @@ async function animateText(element, text) {
       }
     }
 
-    if (lines.indexOf(line) < lines.length - 1 && line !== "") {
-      // 改行が1つだけの場合にのみクリック待ちが発生するようにする
+    if (lines.indexOf(line) < lines.length - 1) {
       waitingForClick = true;
       await new Promise((resolve) => {
         const clickHandler = () => {
@@ -58,6 +56,12 @@ async function animateText(element, text) {
         };
         gameContainer.addEventListener("click", clickHandler);
       });
+
+      // 連続する空行をスキップする
+      while (lines[lines.indexOf(line) + 1] === "") {
+        lineElement.nextElementSibling.style.opacity = "1";
+        line = lines[lines.indexOf(line) + 1];
+      }
     }
   }
 }
