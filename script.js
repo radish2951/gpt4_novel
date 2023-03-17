@@ -103,6 +103,10 @@ async function loadGame(file) {
 function handleChoice(index) {
   const targetScene = currentChoices[index].target;
   const targetSceneWithExtension = targetScene.endsWith(".txt") ? targetScene : targetScene + ".txt";
+  
+  // 選択肢をクリアする
+  choices.innerHTML = "";
+
   loadGame(targetSceneWithExtension);
 }
 
