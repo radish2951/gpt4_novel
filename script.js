@@ -97,10 +97,12 @@ async function loadGame(file) {
   showChoices(choiceList);
 }
 
-// 未実装の handleChoice 関数
-function handleChoice(index) {
+async function handleChoice(index) {
+  const choice = currentChoices[index];
   console.log(`選択肢 ${index} を選択しました。`);
+  await loadGame(`${choice.target}.txt`);
 }
+
 
 // 最初のシーンを読み込む
 loadGame("scene1.txt");
