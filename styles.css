@@ -60,6 +60,27 @@ body {
   border-radius: 10px;
   font-size: 1.2rem;
   overflow-y: auto;
+  padding-bottom: 20px;
+}
+
+/* スクロールバーのスタイル */
+#text-window::-webkit-scrollbar {
+  width: 12px;
+}
+
+#text-window::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+#text-window::-webkit-scrollbar-thumb {
+  background-color: #FFB6B9;
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+#text-window::-webkit-scrollbar-thumb:hover {
+  background-color: #FFC1C4;
 }
 
 #text-box {
