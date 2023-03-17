@@ -98,21 +98,24 @@ body {
   margin-top: 20px;
 }
 
+/* 選択肢のデザインを改善 */
 .choice {
-  display: inline-block;
-  background-color: #FFB6B9;
-  padding: 10px 20px;
-  margin: 10px;
-  border-radius: 30px;
-  font-size: 1.1rem;
-  text-align: center;
+  background-color: #6c757d;
+  border: none;
+  color: white;
   cursor: pointer;
-  user-select: none;
+  font-size: 18px;
+  margin: 5px;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 5px;
   transition: background-color 0.3s;
 }
 
 .choice:hover {
-  background-color: #FFC1C4;
+  background-color: #5a6268;
 }
 
 .char {
