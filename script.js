@@ -47,20 +47,17 @@ async function animateText(element, text) {
     }
 
     if (lines.indexOf(line) < lines.length - 1) {
-      waitingForClick = true;
-      await new Promise((resolve) => {
-        const clickHandler = () => {
-          waitingForClick = false;
-          gameContainer.removeEventListener("click", clickHandler);
-          resolve();
-        };
-        gameContainer.addEventListener("click", clickHandler);
-      });
-
-      // 連続する空行をスキップする
-      while (lines[lines.indexOf(line) + 1] === "") {
-        lineElement.nextElementSibling.style.opacity = "1";
-        line = lines[lines.indexOf(line) + 1];
+      // 空行でない場合のみ、クリック待ちを実行
+      if (line.trim() !== "") {
+        waitingForClick = true;
+        await new Promise((resolve) => {
+          const clickHandler = () => {
+            waitingForClick = false;
+            gameContainer.removeEventListener("click", clickHandler);
+            resolve();
+          };
+          gameContainer.addEventListener("click", clickHandler);
+        });
       }
     }
   }
