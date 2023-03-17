@@ -34,6 +34,8 @@ async function animateText(element, text) {
 
     element.appendChild(lineElement);
 
+    scrollToBottom();
+
     let charIndex = 0;
     while (charIndex < lineElement.children.length) {
       lineElement.children[charIndex].style.opacity = "1";
