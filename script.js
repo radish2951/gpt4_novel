@@ -17,47 +17,67 @@ async function animateText(element, text) {
   const lines = text.split("\n");
 
   for (const line of lines) {
-    const lineElement = document.createElement("div");
-
-    for (const char of line) {
-      const charSpan = document.createElement("span");
-      charSpan.className = "char";
-      charSpan.textContent = char;
-      charSpan.style.opacity = "0";
-      lineElement.appendChild(charSpan);
-    }
+    const lineElement = createLineElement(line);
 
     element.appendChild(lineElement);
+    await revealLine(lineElement);
 
-    let charIndex = 0;
-    while (charIndex < lineElement.children.length) {
-      lineElement.children[charIndex].style.opacity = "1";
-      if (!skipAnimation) {
-        await new Promise((resolve) => setTimeout(resolve, 50));
-      }
-      if (skipAnimation) {
-        for (let i = charIndex + 1; i < lineElement.children.length; i++) {
-          lineElement.children[i].style.opacity = "1";
-        }
-        skipAnimation = false;
-        break;
-      } else {
-        charIndex++;
-      }
+    if (skipAnimation) {
+      showRemainingLines(lines, line);
+      break;
     }
 
     if (lines.indexOf(line) < lines.length - 1) {
-      waitingForClick = true;
-      await new Promise((resolve) => {
-        const clickHandler = () => {
-          waitingForClick = false;
-          gameContainer.removeEventListener("click", clickHandler);
-          resolve();
-        };
-        gameContainer.addEventListener("click", clickHandler);
-      });
+      await waitForClick();
     }
   }
+}
+
+function createLineElement(line) {
+  const lineElement = document.createElement("div");
+
+  for (const char of line) {
+    const charSpan = document.createElement("span");
+    charSpan.className = "char";
+    charSpan.textContent = char;
+    charSpan.style.opacity = "0";
+    lineElement.appendChild(charSpan);
+  }
+
+  return lineElement;
+}
+
+async function revealLine(lineElement) {
+  for (const charSpan of lineElement.children) {
+    charSpan.style.opacity = "1";
+    if (!skipAnimation) {
+      await new Promise((resolve) => setTimeout(resolve, 50));
+    } else {
+      break;
+    }
+  }
+}
+
+function showRemainingLines(lines, currentLine) {
+  textBox.innerHTML = "";
+  for (const remainingLine of lines.slice(lines.indexOf(currentLine))) {
+    const remainingLineElement = document.createElement("div");
+    remainingLineElement.textContent = remainingLine;
+    textBox.appendChild(remainingLineElement);
+  }
+  skipAnimation = false;
+}
+
+async function waitForClick() {
+  waitingForClick = true;
+  await new Promise((resolve) => {
+    const clickHandler = () => {
+      waitingForClick = false;
+      gameContainer.removeEventListener("click", clickHandler);
+      resolve();
+    };
+    gameContainer.addEventListener("click", clickHandler);
+  });
 }
 
 function parseChoices(text) {
@@ -86,8 +106,6 @@ function showChoices(choiceList) {
   });
 }
 
-let currentChoices = [];
-
 async function loadGame(file) {
   const response = await fetch(file);
   const text = await response.text();
@@ -96,20 +114,27 @@ async function loadGame(file) {
   textBox.innerHTML = "";
   skipAnimation = false;
   await animateText(textBox, content);
-  currentChoices = choiceList;
   showChoices(choiceList);
 }
 
 function handleChoice(index) {
-  const targetScene = currentChoices[index].target;
-  const targetSceneWithExtension = targetScene.endsWith(".txt") ? targetScene : targetScene + ".txt";
-  
-  // 選択肢をクリアする
-  choices.innerHTML = "";
-
-  loadGame(targetSceneWithExtension);
+  const chosen = currentChoices[index];
+  if (chosen.target) {
+    choices.innerHTML = "";
+    loadGame(chosen.target + ".txt");
+  }
 }
 
+async function initializeGame() {
+  const response = await fetch("scene1.txt");
+  const text = await response.text();
+  currentChoices = parseChoices(text);
+  const content = text.replace(/choice:.+/g, "").replace(/->\s*(.+)/g, "").replace(/::[^:]+::/g, "").trim();
+  textBox.innerHTML = "";
+  skipAnimation = false;
+  await animateText(textBox, content);
+  showChoices(currentChoices);
+}
 
-// 最初のシーンを読み込む
-loadGame("scene1.txt");
+let currentChoices = [];
+initializeGame();
