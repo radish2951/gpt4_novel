@@ -12,6 +12,10 @@ gameContainer.addEventListener("click", () => {
   }
 });
 
+function scrollToBottom(element) {
+  element.scrollTop = element.scrollHeight;
+}
+
 async function animateText(element, text) {
   element.innerHTML = "";
   const lines = text.split("\n");
@@ -60,6 +64,8 @@ async function animateText(element, text) {
         });
       }
     }
+
+    scrollToBottom(element); // 追加: スクロールを一番下に移動させる
   }
 }
 
