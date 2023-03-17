@@ -1,9 +1,44 @@
 body {
   background-color: #F9EEFF;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Amatic SC', cursive;
   margin: 0;
   padding: 0;
   user-select: none;
+}
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+#title-screen {
+  background-image: url("background.jpg"); /* お好みの背景画像に置き換えてください */
+  background-size: cover;
+  background-position: center;
+}
+
+#title-screen h1 {
+  font-size: 5rem;
+  color: #FFB6B9;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin-bottom: 30px;
+}
+
+#start-game {
+  background-color: #FFB6B9;
+  font-size: 1.8rem;
+  padding: 10px 30px;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#start-game:hover {
+  background-color: #FFC1C4;
 }
 
 .game-container {
@@ -20,27 +55,11 @@ body {
   width: 80%;
   max-width: 800px;
   min-height: 180px;
-  max-height: 400px; /* 追加: 最大高さを設定 */
-  overflow-y: auto; /* 追加: 縦方向のスクロールバーを表示 */
   margin-bottom: 50px;
   padding: 20px;
   border-radius: 10px;
   font-size: 1.2rem;
-}
-
-/* 追加: スクロールバーのスタイルを設定 */
-#text-window::-webkit-scrollbar {
-  width: 8px;
-}
-
-#text-window::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-}
-
-#text-window::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.4);
-  border-radius: 4px;
+  overflow-y: auto;
 }
 
 #text-box {
@@ -48,7 +67,6 @@ body {
   min-height: 100px;
   transition: opacity 0.5s;
   margin: 0 10px;
-  line-height: 1.6; /* 行間を調整 */
 }
 
 #choices {
@@ -75,13 +93,9 @@ body {
   background-color: #FFC1C4;
 }
 
-.choice:focus { /* フォーカススタイルを追加 */
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(255, 182, 185, 0.5);
-}
-
 .char {
   opacity: 0;
   display: inline;
   transition: opacity 0.2s;
 }
+
