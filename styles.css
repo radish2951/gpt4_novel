@@ -18,6 +18,11 @@ body {
   background-image: url("background.jpg"); /* お好みの背景画像に置き換えてください */
   background-size: cover;
   background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
 #title-screen h1 {
