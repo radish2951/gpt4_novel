@@ -61,6 +61,15 @@ async function animateText(element, text) {
       });
     }
   }
+  waitingForClick = true;
+  await new Promise((resolve) => {
+    const clickHandler = () => {
+      waitingForClick = false;
+      gameContainer.removeEventListener("click", clickHandler);
+      resolve();
+    };
+    gameContainer.addEventListener("click", clickHandler);
+  });
 }
 
 function parseChoices(text) {
