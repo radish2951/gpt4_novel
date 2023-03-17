@@ -29,24 +29,19 @@ async function animateText(element, text) {
 
     element.appendChild(lineElement);
 
-    for (const charSpan of lineElement.children) {
-      charSpan.style.opacity = "1";
+    let charIndex = 0;
+    while (charIndex < lineElement.children.length) {
+      lineElement.children[charIndex].style.opacity = "1";
       if (!skipAnimation) {
         await new Promise((resolve) => setTimeout(resolve, 50));
+      }
+      if (skipAnimation && charIndex === lineElement.children.length - 1) {
+        skipAnimation = false;
+      } else if (skipAnimation) {
+        charIndex = lineElement.children.length - 1;
       } else {
-        break;
+        charIndex++;
       }
-    }
-
-    if (skipAnimation) {
-      element.innerHTML = "";
-      for (const remainingLine of lines.slice(lines.indexOf(line))) {
-        const remainingLineElement = document.createElement("div");
-        remainingLineElement.textContent = remainingLine;
-        element.appendChild(remainingLineElement);
-      }
-      skipAnimation = false;
-      break;
     }
 
     if (lines.indexOf(line) < lines.length - 1) {
@@ -61,15 +56,6 @@ async function animateText(element, text) {
       });
     }
   }
-  waitingForClick = true;
-  await new Promise((resolve) => {
-    const clickHandler = () => {
-      waitingForClick = false;
-      gameContainer.removeEventListener("click", clickHandler);
-      resolve();
-    };
-    gameContainer.addEventListener("click", clickHandler);
-  });
 }
 
 function parseChoices(text) {
