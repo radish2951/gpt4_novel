@@ -137,3 +137,18 @@ body {
   opacity: 1;
   transition: opacity 0.5s;
 }
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.choice {
+  animation: slideUp 0.3s ease-out both;
+}
