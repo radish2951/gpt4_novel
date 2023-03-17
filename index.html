@@ -7,12 +7,23 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="game-container">
-    <div id="text-window">
-      <div id="text-box"></div>
-    </div>
-    <div id="choices"></div>
+
+  <div id="title-screen" class="screen">
+    <h1>ゲームタイトル</h1>
+    <button id="start-game">ゲーム開始</button>
   </div>
+  
+  <div id="game-screen" class="screen" style="display: none;">
+    <!-- 既存のゲーム要素（text-window、choicesなど） -->
+    <div class="game-container">
+      <div id="text-window">
+        <div id="text-box"></div>
+      </div>
+      <div id="choices"></div>
+    </div>
+  
+  </div>
+  
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="script.js"></script>
 </body>

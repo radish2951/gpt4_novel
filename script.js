@@ -119,5 +119,8 @@ function handleChoice(index) {
 }
 
 
-// 最初のシーンを読み込む
-loadGame("scene1.txt");
+document.getElementById("start-game").addEventListener("click", () => {
+  document.getElementById("title-screen").style.display = "none";
+  document.getElementById("game-screen").style.display = "block";
+  loadGame("scene1.txt");
+});
