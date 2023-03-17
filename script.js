@@ -3,7 +3,6 @@ const choices = document.getElementById("choices");
 const gameContainer = document.querySelector(".game-container");
 let skipAnimation = false;
 let waitingForClick = false;
-let currentChoices = [];
 
 gameContainer.addEventListener("click", () => {
   if (waitingForClick) {
