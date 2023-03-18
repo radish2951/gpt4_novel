@@ -26,10 +26,19 @@ body {
 }
 
 #title-screen h1 {
-  font-size: 5rem;
-  color: #FFB6B9;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-size: 4.5rem; /* フォントサイズを調整 */
+  color: #FFB6B9; /* 文字色を変更 */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 影を追加 */
   margin-bottom: 30px;
+  font-family: 'Amatic SC', cursive; /* 好みのフォントファミリーに変更 */
+}
+
+#title-screen h2 {
+  font-size: 2.5rem; /* フォントサイズを調整 */
+  color: #FFB6B9; /* 文字色を変更 */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 影を追加 */
+  margin-bottom: 30px;
+  font-family: 'Amatic SC', cursive; /* 好みのフォントファミリーに変更 */
 }
 
 #start-game {
