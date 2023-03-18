@@ -102,6 +102,10 @@ body {
   line-height: 1.5; /* ここを追加 */
 }
 
+#text-box div {
+  margin-bottom: 1.5rem;
+}
+
 #choices {
   display: flex;
   flex-direction: column;
