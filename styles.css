@@ -99,6 +99,7 @@ body {
   min-height: 100px;
   transition: opacity 0.5s;
   margin: 0 10px;
+  line-height: 1.5; /* ここを追加 */
 }
 
 #choices {
